@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 const db = require('../models');
-
+const passport = require('../config/ppConfig.js')
 
 router.get('/signup', (req, res) => {
     res.render('auth/signup')
@@ -20,10 +20,19 @@ router.post('/signup', (req, res) => {
     })
     .then(([user, wasCreated])=> {
         if(wasCreated){
-            res.send(`Created a new user Profile for ${user.email}`)
+            passport.authenticate('local', {
+                successRedirect: '/',
+                succesFlash: 'Account created and user logged in!'
+            })(req, res)
+           // res.send(`Created a new user Profile for ${user.email}`)
         } else {
-            res.send('Email already exists! Try logging in???')
+            req.flash('error', 'An account with that email already exists, did you mean to log in?')
+            res.redirect('/auth/login')
         }
+    })
+    .catch(err=>{
+        req.flash('error', err.message)
+        res.redirect('/auth/signup')
     })
 });
 
@@ -31,28 +40,16 @@ router.get('/login', (req, res) => {
     res.render('auth/login')
 });
 
-router.post('/login', (req, res) => {
-    db.user.findOne({
-        where: {
-            email: req.body.email,
-            password: req.body.password
-        }
-    })
-    .then(foundUser => {
-        if(foundUser){
-            res.send(`Logged in the following user: ${foundUser.name}`)
-        }else {
-            res.send('hmm can\'t find that one, try signing up?')
-        }
-    })
-    .catch(err => {
-        console.log(err)
-        res.send('There was an error logging in. Check the console???')
-    })
-});
+router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/auth/login',
+    successRedirect: '/',
+    successFlash: 'You are now logged in :)',
+    failureFlash: 'Invalid email or password :('
+}))
 
 router.get('/logout', (req, res) => {
-    res.send('You have been logged out.')
+    req.logout()
+    res.redirect('/')
 });
 
 

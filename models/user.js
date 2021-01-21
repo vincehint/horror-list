@@ -59,8 +59,10 @@ module.exports = (sequelize, DataTypes) => {
     pendingUser.password = hashedPassword
   })
 
-  user.prototype.validPassword = function(passwordInput) {
-    let match = bcrypt.compare(passwordInput, this.password)
+  user.prototype.validPassword = async function(passwordInput) {
+    console.log(`passwordInput: ${passwordInput}`)
+    let match = await bcrypt.compare(passwordInput, this.password)
+    console.log(`??????? was the password a match??: ${match}`)
     return match
   }
 
