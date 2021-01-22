@@ -1,8 +1,10 @@
 //configure environment variables
 require('dotenv').config()         
 //bring express to app
-let express = require('express');            
-//let db = require('./models');
+let express = require('express');
+const axios = require('axios')
+const API_KEY = process.env.API_KEY;            
+let db = require('./models');
 let app = express();
 //bring in session
 const session = require('express-session')
@@ -11,7 +13,7 @@ const passport = require('./config/ppConfig.js')
 // bring in flash
 const flash = require('connect-flash')
 const isLoggedIn = require('./middleware/isLoggedIn.js')
-const API_KEY = process.env.API_KEY;
+
 //middleware to create different html files
 app.set('view engine', 'ejs');     
 //enable layouts
@@ -44,18 +46,17 @@ app.get('/', (req, res) => {
 })
 //profile page
 app.get('/profile', isLoggedIn, (req, res) => {       
-    res.render('profile.ejs')
+    res.render('profile')
 })
 
 app.get('*', (req, res) => {
-    res.render('./404.ejs')
+    res.render('./404')
 })
 
 app.get('/results', (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=b5e71871c61ba9cafb3c1f7fcf1243ec&with_genres=27`)
+    axios.get(`https://api.themoviedb.org/3/movie/550?api_key=${API_KEY}&s=${req.query.searchBar}&with_genres=27`)
     .then(response => {
-      console.log(response)
-      console.log(req, res)
+      console.log(res)
       res.render('results', {movies: response.data.Search});
   });
   })
@@ -67,7 +68,11 @@ app.get('/results', (req, res) => {
     });
   })
 
+  app.use('/authors', require('./controllers/watchlist'))
+
 
 app.listen(process.env.PORT, () => {
     console.log(`auth app running on port ${process.env.PORT}` );
   });
+
+  module.exports = server
