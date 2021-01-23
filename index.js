@@ -1,11 +1,11 @@
 //configure environment variables
 require('dotenv').config()         
 //bring express to app
-let express = require('express');
+const express = require('express');
 const axios = require('axios')
 const API_KEY = process.env.API_KEY;            
-let db = require('./models');
-let app = express();
+const db = require('./models');
+const app = express();
 //bring in session
 const session = require('express-session')
 // bring in passport
@@ -40,7 +40,8 @@ app.use((req, res, next)=>{
 })
 // bring in auth to controllers
 app.use('/auth', require('./controllers/auth.js'));     
-//home page
+//home page 
+app.use('/watchlist', require('./controllers/watchlist'))
 app.get('/', (req, res) => {     
    res.render('home')
 })
@@ -68,10 +69,10 @@ app.get('/results', (req, res) => {
     });
   })
 
-  app.use('/authors', require('./controllers/watchlist'))
+ 
 
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log(`auth app running on port ${process.env.PORT}` );
   });
 
