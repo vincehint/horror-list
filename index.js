@@ -58,7 +58,7 @@ app.get('/results', (req, res) => {
     axios.get(`https://api.themoviedb.org/3/movie/550?api_key=${API_KEY}&s=${req.query.searchBar}&with_genres=27`)
     .then(response => {
       console.log(res)
-      res.render('results', {movies: response.data.Search});
+      res.render('results', {movies: response.data.search});
   });
   })
   
