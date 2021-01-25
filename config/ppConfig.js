@@ -18,11 +18,22 @@ passport.deserializeUser((id, doneCallback) => {
     .then(foundUser=>{
         console.log('deserializing user...')
         doneCallback(null, foundUser)
+        return foundUser
     })
     .catch(err => {
         console.log('Error deserializing user')
     })
 })
+// passport.deserializeUser((id, cb)=>{
+//     // cb(null, id)
+//     // .catch(cb);
+//     db.user.findByPk(id)
+//     .then(user =>{
+//         console.log("Hiya!")
+//         cb(null, user)
+//     }).catch(error)
+//         console.log(error)
+//     });
 
 // --------------------------> STRATEGY SET UP<-----------------------------
 

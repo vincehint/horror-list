@@ -1,3 +1,4 @@
+
 <% movies.forEach(movie => { %>
-    <a href="/results/<%= movie.imdb_id %>"><p><%= movie.title %></p></a>
+    <a href="/results/<%= movie.imdb_id %>"><p><%= movie.title %> <%= movie.poster %></p></a>
 <% }) %>

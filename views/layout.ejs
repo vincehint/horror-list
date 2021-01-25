@@ -3,26 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supersonics Express Auth</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <title>Horror List</title>
 </head>
+<style>
+    body {
+        background-color: rgb(36, 35, 35);
+    }
+    label {
+        color : rgb(111, 21, 21);
+        font-family : 'Creepster', cursive;
+    }
+    a {
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+    }
+   
+    .nav {
+        font-family: 'Creepster', cursive;
+        color: rgb(111, 21, 21);
+        text-decoration:none;
+        padding:15px;
+        -webkit-transform: skew(35deg) !important;
+        -moz-transform: skew(35deg) !important;
+        -ms-transform: skew(35deg) !important;
+        -o-transform: skew(35deg) !important;
+        -webkit-transform: rotate(35deg) !important;
+        transform: skew(35deg) !important; 
+        font-size: 3em;
+        background-image: url("https://i.pinimg.com/originals/42/6d/f1/426df14140224176fc77e50ba0b57886.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }  
+    a {
+        width: 150px;
+    }
+    .searchbar {
+       width: 300px;
+       height: 30px; 
+       text-align: center;
+    }
+    .submitButton {
+        text-align: center;
+    }
+    .search {
+        text-align: center;
+    }
+    .submit {
+        text-align: center;
+    }
+    
+</style>
 <body>
     <header>
         <nav>
-            <ul>
+            <h1 class="nav">Horror List</h1>
+            <div>
                 <% if (!currentUser) { %>
-                <li><a href='/auth/signup'>Sign Up</a></li>
-                <li><a href='/auth/login'>Log In</a></li>
+                    <a href='/auth/signup'>Sign Up</a>
+                    <a href='/auth/login'>Log In</a>
                 <% } else { %>
-                <li><a href='/auth/logout'>Log Out</a></li>
-                <li><a href='/profile'>Profile</a></li>
-                <li><a href='/rate'>Rate Movies</a></li>
-                <li><a href='/favorites'>My Favorite Movies</a></li>
-
+                    <a href='/auth/logout'>Log Out</a>
+                    <a href='/profile'>Profile</a>
+                    <<a href='/rate'>Rate Movies</a>
+                    <a href='/favorites'>My Favorite Movies</a>
                 <% } %>
-            </ul>
+            </div>
         </nav>
     </header>
+
+   
     <%- include('partials/alerts') %>
     <%-body%>
+    
 </body>
 </html>

@@ -38,6 +38,7 @@ app.use((req, res, next)=>{
     res.locals.currentUser = req.user
     next() // tells express to move on to the next piece of middleware
 })
+app.use(require('morgan')('dev'));
 // bring in auth to controllers
 app.use('/auth', require('./controllers/auth.js'));     
 //home page 
@@ -50,27 +51,36 @@ app.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile')
 })
 
-app.get('*', (req, res) => {
-    res.render('./404')
-})
+
 
 app.get('/results', (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/movie/550?api_key=${API_KEY}&s=${req.query.searchBar}&with_genres=27`)
+  console.log(req.query)
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${req.query.searchBar}`)
     .then(response => {
-      console.log(res)
-      res.render('results', {movies: response.data.search});
+      let movies = response.data
+      console.log("MOVIERESPONSE", response.data)
+      res.render('results', {movie: movies.results});
   });
   })
   
-  app.get('/results/:id', (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/movie/550?api_key=${API_KEY}&i=${req.params.id}&with_genres=27`)
+app.get('/results/:id', (req, res) => {
+    axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${req.params.id}`)
     .then(response => {
-      res.render('show', {movie: response.data})
+      let movie = response.data
+      res.render('show', {movie: movie})
     });
   })
 
- 
+// app.get('/faves', (req, res) => {
+//   db.fave.findAll().then(faves => {
+//     res.render('faves.ejs', {movies: faves})
+//   })
+// })
 
+ 
+app.get('*', (req, res) => {
+    res.render('./404')
+})
 
 const server = app.listen(process.env.PORT, () => {
     console.log(`auth app running on port ${process.env.PORT}` );
