@@ -10,34 +10,44 @@
 <style>
     body {
         background-color: rgb(36, 35, 35);
+        background-image: url("https://i.pinimg.com/originals/42/6d/f1/426df14140224176fc77e50ba0b57886.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
     }
     label {
         color : rgb(111, 21, 21);
         font-family : 'Creepster', cursive;
+        font-size: 2em;
+        -webkit-text-stroke: 1px rgb(27, 27, 27);
     }
     a {
         color: rgb(111, 21, 21);
         font-family: 'Creepster', cursive;
+        font-size: 1.5em;
+        -webkit-text-stroke: 1px rgb(27, 27, 27);
     }
    
     .nav {
         font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px rgb(27, 27, 27);
         color: rgb(111, 21, 21);
         text-decoration:none;
-        padding:15px;
-        -webkit-transform: skew(35deg) !important;
-        -moz-transform: skew(35deg) !important;
-        -ms-transform: skew(35deg) !important;
-        -o-transform: skew(35deg) !important;
-        -webkit-transform: rotate(35deg) !important;
-        transform: skew(35deg) !important; 
-        font-size: 3em;
-        background-image: url("https://i.pinimg.com/originals/42/6d/f1/426df14140224176fc77e50ba0b57886.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
+        padding: 50px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        -webkit-transform: skew(40deg) !important;
+        -moz-transform: skew(40deg) !important;
+        -ms-transform: skew(40deg) !important;
+        -o-transform: skew(40deg) !important;
+        -webkit-transform: rotate(40deg) !important;
+        transform: skew(40deg) !important; 
+        font-size: 4em;
+        background-color: rgb(0, 0, 0);
+        
     }  
     a {
         width: 150px;
+        margin: 25px;
     }
     .searchbar {
        width: 300px;
@@ -53,23 +63,31 @@
     .submit {
         text-align: center;
     }
+    input {
+        text-align: center;
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px rgb(27, 27, 27);
+    }
+    
     
 </style>
 <body>
     <header>
         <nav>
             <h1 class="nav">Horror List</h1>
-            <div>
-                <% if (!currentUser) { %>
-                    <a href='/auth/signup'>Sign Up</a>
-                    <a href='/auth/login'>Log In</a>
-                <% } else { %>
-                    <a href='/auth/logout'>Log Out</a>
-                    <a href='/profile'>Profile</a>
-                    <<a href='/rate'>Rate Movies</a>
-                    <a href='/favorites'>My Favorite Movies</a>
-                <% } %>
-            </div>
+            
+            <% if (!currentUser) { %>
+                <a href='/auth/signup'>Sign Up</a>
+                <a href='/auth/login'>Log In</a>
+            <% } else { %>
+                <a href='/auth/logout'>Log Out</a>
+                <a href='/profile'>Profile</a>
+                <a href='/rate'>Rate Movies</a>
+                <a href='/horrorlist'>Horror List</a>
+                <!-- <a href='/watchlist'>Watchlist</a> -->
+            <% } %>
+            
         </nav>
     </header>
 

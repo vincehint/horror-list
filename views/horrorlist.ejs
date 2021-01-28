@@ -1,0 +1,60 @@
+<style>
+    .nav {
+        display: flex;
+       text-shadow: crimson;
+    }
+    li {
+        text-align: center;
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px #4C0606;
+        padding: 15px;
+        margin: 10px;
+    }
+    h1 {
+        text-align: center;
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px #4C0606;
+        font-size: 3em;
+        text-shadow: red;
+    }
+    a {
+        padding: 0px;
+        text-align: center;
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px #4C0606;
+    }
+    p {
+        text-align: center;
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px #4C0606;
+        font-size: 2.5em;
+    }
+    .listImage {
+        padding: 5px;
+    }
+    .ref {
+        padding: 8px;
+    }
+</style>
+
+<h1>My Horror List</h1>
+<p>Here's where you add horror flicks that you'd like to watch!</p>
+<ul>
+    <% movies.forEach(movie => { %>
+        <li>
+            <div class="listImage">
+                <img src="https://www.themoviedb.org/t/p/w220_and_h330_face<%= movie.poster_path %>" alt="">
+            </div>
+            <div class=ref>
+                <a href="/movie/<%= movie.apiId%>"><%= movie.title %></a>
+            </div>
+                <form action="/movie/<%= movie.id %>?_method=DELETE" method="POST">
+                    <input type="submit" name="delete" value="Delete From Horror List">
+                </form>
+        </li>
+    <% }) %> 
+</ul>

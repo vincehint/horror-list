@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt')
 const {
   Model
 } = require('sequelize');
+const db = require('.');
+//db.user = require("/user.model");
+//db.faves = require("/faves.model");
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -12,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.user.belongsToMany(models.movie, {through: "faves"})
     }
   };
   user.init({

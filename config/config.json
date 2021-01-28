@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "express_auth_development",
+    "database": "horror_list_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

@@ -1,4 +1,20 @@
-
+<style>
+    img {
+        width: 125px;
+    }
+    a {
+        text-align: center;
+        font-size: 1.5em;
+    }
+    .searchResults {
+        text-align: center;
+    }
+</style>
 <% movies.forEach(movie => { %>
-    <a href="/results/<%= movie.imdb_id %>"><p><%= movie.title %> <%= movie.poster %></p></a>
+    <div class="searchResults">
+        <a href="/results/<%= movie.id %>">
+            <p><%= movie.title %></p>
+            <img src="https://image.tmdb.org/t/p/w400/<%= movie.poster_path %>" alt=""> 
+        </a>
+    </div>
 <% }) %>

@@ -1,10 +1,66 @@
-<form action="/faves" method="POST">
-    <h1>
-        <%= movie.title %>
-    </h1>
-    <img src="<%= movie.poster %>" alt="">
-
-    <input type="hidden" name="title" value="<%= movie.Title %>" >
-    <input type="hidden" name="imdb_id" value= "<%= movie.imbdid %>" >
-    <input type="submit" name="favorite" placeholder="add to favorites">
+<style>
+    form {
+        text-align: center;
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px rgb(27, 27, 27);
+    }
+    input {
+        text-align: center;
+        color: rgb(111, 21, 21);
+        font-family: 'Creepster', cursive;
+        -webkit-text-stroke: 1px rgb(27, 27, 27);
+    }
+    p {
+        --webkit-text-stroke: 1px rgb(27, 27, 27);
+        font-size: 2em;
+        text-align: center;
+        color: rgb(111, 21, 21);
+    }
+    .movieTitle {
+        font-size: 3em;
+        -webkit-text-stroke: 1px rgb(27, 27, 27);
+        text-align: center;
+        color: rgb(111, 21, 21);
+    }
+    .poster {
+        text-align: center;
+    }
+  
+</style>
+<div>
+        <h1 class="movieTitle">
+            <%= movie.title %>
+        </h1>
+    <div class="poster">   
+        <img src="https://www.themoviedb.org/t/p/w220_and_h330_face<%= movie.poster_path %>" alt="">
+    </div> 
+        <p> Original Title: <%= movie.original_title %></p>
+        <p> Tagline: <%= movie.tagline %></p>
+        <p> Made In: <%= movie.origin_country %></p>
+        <p> Released in: <%=movie.release_date %></p>
+        <p> <%= movie.overview %></p>
+</div>
+<form action="/horrorlist" method="POST">
+    
+    
+    <input type="hidden" name="title" value="<%= movie.title %>" >
+    <input type="hidden" name="apiId" value= "<%= movie.id %>" >
+    <input type="hidden" name="poster_path" value="<%= movie.poster_path %>" >
+    <input type="hidden" name="overview" value= "<%= movie.overview %>" >
+    <input type="hidden" name="original_title" value="<%= movie.original_title %>" >
+    <input type="hidden" name="release_date" value= "<%= movie.release_date %>" >
+    <input type="hidden" name="original_language" value= "<%= movie.original_language %>" >
+    <input type="Submit" name="faves" value="add to horror list">
+    
 </form>
+<!-- <form action="/watchlist" method="POST">
+    <input type="hidden" name="title" value="<%= movie.title %>" >
+    <input type="hidden" name="movieId" value= "<%= movie.id %>" >
+    <input type="hidden" name="poster_path" value="<%= movie.poster_path %>" >
+    <input type="hidden" name="overview" value= "<%= movie.overview %>" >
+    <input type="hidden" name="original_title" value="<%= movie.original_title %>" >
+    <input type="hidden" name="release_date" value= "<%= movie.release_date %>" >
+    <input type="hidden" name="original_language" value= "<%= movie.original_language %>" >
+    <input type="Submit" name="watchlist" value="add to watchlist">
+</form> -->
