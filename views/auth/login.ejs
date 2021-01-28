@@ -1,6 +1,17 @@
-<h1>LOGIN</h1>
-
-<form action="/auth/login" method="POST">
+<style>
+        .login {
+                margin: 25px;
+                padding: 30px;
+                color: rgb(111, 21, 21) !important;
+        }
+        .loginForm {
+                text-align: center;
+        }
+</style>
+<div>
+        <h1 class="login">LOGIN</h1>
+</div>
+<form class="loginForm" action="/auth/login" method="POST">
         <label for="email">Email</label>
         <input type="email" name="email" id="email">
 

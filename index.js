@@ -2,18 +2,25 @@
 require('dotenv').config()         
 //bring express to app
 const express = require('express');
+//axios is how we search databases
 const axios = require('axios')
-const API_KEY = process.env.API_KEY;            
+//api key is our personal key to be able to access the database
+const API_KEY = process.env.API_KEY;     
+// lets us use models to be able to store things from the database       
 const db = require('./models');
+// lets us use express in our project
 const app = express();
+// Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it
 const methodOverride = require('method-override')
-const async = require('async')
+
+//const async = require('async')
 //bring in session
 const session = require('express-session')
 // bring in passport
 const passport = require('./config/ppConfig.js')
 // bring in flash
 const flash = require('connect-flash')
+// allows  us to use isLoggedIn middleware that checks to see if a user is logged in in order to view a page
 const isLoggedIn = require('./middleware/isLoggedIn.js')
 
 //middleware to create different html files
@@ -28,6 +35,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
+// an instance of methodOverride
 app.use(methodOverride("_method"))
 //passport middleware
 app.use(passport.initialize())
@@ -56,25 +64,25 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 
 
-app.get('/results', (req, res) => {
+app.get('/results', (req, res) => {  //path for the results page from the search bar
   //console.log(req.query)
     axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${req.query.searchBar}`)
     .then(response => {
-      let movies = response.data
+      let movies = response.data 
       //console.log("MOVIERESPONSE", response.data)
       res.render('results', {movies: movies.results});
   });
   })
-  
+// below creates a path for the show page of a movie by searching the id.
 app.get('/results/:id', (req, res) => {
     axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${API_KEY}`)
     .then(response => {
       let movie = response.data
       //es.send(movie)
-      res.render('show', {movie: movie})
+      res.render('show', {movie: movie}) //renders the movie details from the database movies
     });
   })
-
+// below creates a path for a users horror list
 app.get('/horrorlist', (req, res) => {
   // db.faves.findAll({
   //   where: {
@@ -85,50 +93,50 @@ app.get('/horrorlist', (req, res) => {
   //   
   // })
   req.user.getMovies().then((movies) => {
-    res.render('horrorlist', {movies: movies})
+    res.render('horrorlist', {movies: movies})  //renders the horror list page with a users movies
   })
 })
-app.post('/horrorlist', (req, res) => {
+app.post('/horrorlist', (req, res) => { //This adds or finds a movie in a users database so that we don't add the same movie twice.
   // res.send(req.body)
     db.movie.findOrCreate({
       where: {
-        apiId: req.body.apiId 
+        apiId: req.body.apiId //find a movie from the database based on the title/id that was in the search form
       },
-      defaults: {
-        title: req.body.title,
-        poster_path: req.body.poster_path,
-        overview: req.body.overview,
-        original_title: req.body.original_title,
-        release_date: req.body.release_date,
-        original_language: req.body.original_language
+      defaults: {  // These are the pieces of info we will be using throughout the site on the movie we're storing
+        title: req.body.title,  //movie title
+        poster_path: req.body.poster_path,  //poster for movie
+        overview: req.body.overview,  // what the movie is about
+        original_title: req.body.original_title, //the original (probably weird) title
+        release_date: req.body.release_date, // when the movie was released
+        original_language: req.body.original_language //what the original language in the film was
       }
     }).then(([movie, wasCreated]) => {
       console.log(`Adding ${movie.title} to ${req.user.name}'s Horror List.`)
-      req.user.addMovie(movie)
-      res.redirect('/horrorlist')
+      req.user.addMovie(movie) //actually adds the movie to the database
+      res.redirect('/horrorlist')  //redirects to the horror list with the save movie included.
     })
 })
 
-app.get('/movie/:id', (req, res) => {
+app.get('/movie/:id', (req, res) => { //this pulls up a show page for a movie based on the id stored by searching the title
   axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${API_KEY}`)
   .then(response => {
     let movie = response.data
     //es.send(movie)
-    res.render('show', {movie: movie})
+    res.render('show', {movie: movie}) //renders the show page on the screen for the movie.
   })
   .catch(error => {
-    console.log(error)
+    console.log(error) //shows us errors if the page crashes.
   })
 })
 
-app.delete('/movie/:id', (req, res) => {
+app.delete('/movie/:id', (req, res) => {  //the route to delete a movie from the web page.
   
-  db.movie.destroy({
+  db.movie.destroy({  //the actual delete funtion
     where: {
-      id: req.params.id
+      id: req.params.id  //which movie to delete
     }
   }).then (() => {
-    res.redirect('/horror')
+    res.redirect('/horrorlist') //redirects back to horror list page minus movie deleted
   })
  })
 
@@ -205,11 +213,11 @@ app.delete('/movie/:id', (req, res) => {
 //  })
 
  
-app.get('*', (req, res) => {
+app.get('*', (req, res) => {  //renders the 404 page when we can't reach a page.
     res.render('./404')
 })
 
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {   //sets the site to the server so we can use it
     console.log(`auth app running on port ${process.env.PORT}` );
   });
 

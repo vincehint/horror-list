@@ -9,13 +9,21 @@
     }
     .search {
         text-align: center;
+        margin-top: 30px;
     }
     .submit {
         text-align: center;
+        margin: 15px
+    }
+    .myPage {
+        color: rgb(111, 21, 21) !important;
+        margin: 50px;
+        padding: 10px;
     }
 </style>
-
-<h1><%= currentUser.name %>'s Horror List</h1>
+<div>
+    <h1 class="myPage"><%= currentUser.name %>'s Horror List</h1>
+</div>
 <form action="/results" method="GET">
     <div class="search">
         <input class="searchbar" type="search" placeholder="Search for a horror flick" name="searchBar">

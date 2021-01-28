@@ -1,6 +1,17 @@
-<h1>SignUp</h1>
-
-<form action="/auth/signup" method="POST">
+<style>
+    .signup {
+        margin: 25px;
+        padding: 30px;
+        color: rgb(111, 21, 21) !important;
+    }
+    .signupForm {
+        text-align: center;
+    }
+</style>
+<div>
+    <h1 class="signup">SignUp</h1>
+</div>
+<form class="signupForm" action="/auth/signup" method="POST">
     <label for="new-name">Name</label>
     <input type="text" name="name" id="new-name">
 

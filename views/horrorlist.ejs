@@ -1,7 +1,11 @@
 <style>
+    body {
+        background-image: url("https://i.pinimg.com/originals/0f/d6/d9/0fd6d954d9ca1221f63daf74ae7816c3.jpg");
+        background-color: black;
+    }
     .nav {
         display: flex;
-       text-shadow: crimson;
+        text-shadow: crimson;
     }
     li {
         text-align: center;
@@ -10,15 +14,18 @@
         -webkit-text-stroke: 1px #4C0606;
         padding: 15px;
         margin: 10px;
-    }
-    h1 {
-        text-align: center;
-        color: rgb(111, 21, 21);
+    
         font-family: 'Creepster', cursive;
-        -webkit-text-stroke: 1px #4C0606;
-        font-size: 3em;
-        text-shadow: red;
-    }
+        
+        font-size: 2em;
+        }
+     .welcome {
+        text-align: center;
+        color: rgb(111, 21, 21) !important;
+        
+        margin: 50px;
+        padding: 10px;
+    } 
     a {
         padding: 0px;
         text-align: center;
@@ -40,8 +47,9 @@
         padding: 8px;
     }
 </style>
-
-<h1>My Horror List</h1>
+<div>
+    <h1 class="welcome">My Horror List</h1>
+</div>
 <p>Here's where you add horror flicks that you'd like to watch!</p>
 <ul>
     <% movies.forEach(movie => { %>
