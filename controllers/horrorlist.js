@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+let db = require('../models')
 // below creates a path for a users horror list
 router.get('/', (req, res) => {
     // db.faves.findAll({
